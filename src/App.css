@@ -1,38 +1,124 @@
-.App {
-  text-align: center;
+.App,
+#root {
+  height: 100%;
+}
+html,
+body {
+  font-family: "Avenir", "helvetica neue", helvetica, arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+input,
+button {
+  padding: 5px 10px;
+  font-size: 50px;
+}
+::placeholder {
+  color: rgba(255, 255, 255, 0.616);
+}
+.jumbotron {
+  padding: 4rem 2rem;
+  margin-bottom: 2rem;
+  background-color: var(--bs-light);
+  border-radius: 0.3rem;
+}
+.app-wrapper {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url(https://source.unsplash.com/collection/220381/);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-blend-mode: darken;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 20px 2fr 2fr 5fr 20px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.btn-regular {
+  outline: none;
+  display: block;
+  cursor: pointer;
+  color: #fff;
+  border: none;
+  border-radius: 0.25rem;
+  background-color: #0be;
+  padding: 0 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+#dob {
+  margin-right: 0.5rem;
+  box-sizing: border-box;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 0.25rem;
+  border-color: #ccc;
+  background-color: #fff;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.age-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-flow: column;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+  grid-column: 2/3;
+  grid-row: 2/3;
+}
+.age-container sup {
+  top: -0.4rem;
+  font-size: 0.5em;
+}
+.age-title {
+  color: grey;
+  line-height: 1;
+  margin: 0 0 0 2px;
+}
+
+/* task input */
+.task-input-container {
+  grid-column: 2/3;
+  grid-row: 3/4;
+}
+.task-input-container .new-task-input {
+  border: none;
+  outline: none;
+  width: 100%;
+  background-color: transparent;
+  border-bottom: 3px solid white;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+/* task items css */
+.list-group-container {
+  grid-column: 2/3;
+  grid-row: 4/5;
+  font-size: 35px;
+}
+.list-group {
+  align-items: center;
+  max-height: 450px;
+  overflow-y: auto;
+}
+.list-group .list-group-item {
+  width: 100%;
+  background-color: transparent;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid white;
+  cursor: pointer;
+}
+.list-group .list-group-item:hover:not(.disabled) {
+  background: rgba(255, 255, 255, 0.205);
+}
+.list-group .new-task-input:hover {
+  border: none;
+  outline: none;
+  border-bottom: 5px solid white;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.list-group .list-group-item.completed {
+  text-decoration: line-through;
+  opacity: 0.5;
 }
