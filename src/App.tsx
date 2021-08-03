@@ -3,7 +3,7 @@ import NewUserPrompt from "./components/NewUserPrompt";
 import AgeCount from "./components/AgeCount";
 import TaskList from "./components/TaskList";
 import TaskInput from "./components/TaskInput";
-import { TaskType } from "./types";
+import { HandleTaskLabel, TaskType } from "./types";
 import { useLocalStorage } from "./hooks";
 import _ from "lodash";
 
@@ -11,12 +11,13 @@ function App() {
   const [tasks, setTasks] = useLocalStorage<Array<TaskType>>("tasks", []);
   const USER_AGE = localStorage.getItem("dob") || null;
 
-  const addNewTask = (taskLabel: string) => {
+  const addNewTask = (taskLabel: string, priority: number) => {
     const newTask = {
       id: Math.random(),
       label: taskLabel,
       completed: false,
       date_due: new Date(),
+      priority,
     };
     setTasks((oldList) => [...oldList, newTask]);
   };
@@ -31,20 +32,31 @@ function App() {
   const removeTask = (id: number) =>
     setTasks((oldList) => _.filter(oldList, (task) => task.id === id));
 
-  const reset = () => setTasks([]);
+  const reset = () => {
+    setTasks([]);
+    setTasks([]);
+  };
+
+  const handleTaskLabel: HandleTaskLabel = (event, id) =>
+    setTasks((oldList) =>
+      _.map(oldList, (task) =>
+        task.id === id ? { ...task, label: event.target.value } : task
+      )
+    );
 
   if (USER_AGE) {
     return (
       <div className="app-wrapper">
         <AgeCount dob={new Date(parseInt(USER_AGE, 10))} />
+        <TaskInput addNewTask={addNewTask} />
         {/* 
         //@ts-ignore */}
         <TaskList
-          tasks={_.sortBy(tasks, "completed")}
+          tasks={_.sortBy(tasks, ["completed", "priority"])}
           toggleTaskComplete={toggleTaskComplete}
           resetCallback={reset}
+          handleTaskLabel={handleTaskLabel}
         />
-        <TaskInput addNewTask={addNewTask} />
       </div>
     );
   }

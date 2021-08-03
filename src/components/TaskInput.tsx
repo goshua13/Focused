@@ -1,7 +1,8 @@
 import React, { FormEvent, FormEventHandler } from "react";
+import { AddTaskType } from "../types";
 
 interface Props {
-  addNewTask: (taskLabel: string) => void;
+  addNewTask: AddTaskType;
 }
 
 const TaskInput: React.FC<Props> = ({ addNewTask }) => {
@@ -9,9 +10,11 @@ const TaskInput: React.FC<Props> = ({ addNewTask }) => {
     event.preventDefault();
     // @ts-ignore
     const inputValue = event.target.taskInput.value;
-    addNewTask(inputValue);
     // @ts-ignore
-    event.target.taskInput.value= ''
+    const priorityValue = event.target.priority.value;
+    addNewTask(inputValue, priorityValue);
+    // @ts-ignore
+    event.target.taskInput.value = "";
   };
 
   return (
@@ -20,8 +23,20 @@ const TaskInput: React.FC<Props> = ({ addNewTask }) => {
         type="text"
         name="taskInput"
         className="new-task-input"
-        placeholder="+ Add new Task"
+        placeholder="+ Add New Task"
       />
+
+      <input
+        className="new-task-dropdown"
+        name="priority"
+        placeholder="Priority"
+        type="number"
+        min="1"
+        max="5"
+        defaultValue={1}
+      />
+
+      <button className="d-none" type="submit" />
     </form>
   );
 };

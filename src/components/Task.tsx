@@ -1,21 +1,33 @@
-import React from "react";
-import { TaskType } from "../types";
+import React, { useState } from "react";
+import { TaskType, HandleTaskLabel } from "../types";
 
 interface Props {
   task: TaskType;
   toggleTaskComplete: (id: number) => void;
+  handleTaskLabel: HandleTaskLabel;
 }
 
-const Task: React.FC<Props> = ({ task, toggleTaskComplete }) => {
-  const date = new Date(task.date_due);
+const Task: React.FC<Props> = ({
+  task,
+  toggleTaskComplete,
+  handleTaskLabel,
+}) => {
+  const [edit, setEdit] = useState(false);
+  // const date = new Date(task.date_due);
   return (
     <li
       className={`list-group-item${task.completed ? " completed" : ""}`}
-      onClick={() => toggleTaskComplete(task.id)}
+      onDoubleClick={() => toggleTaskComplete(task.id)}
+      onClick={() => setEdit(true)}
     >
-      {task.label}
-      <span className="badge bg-primary rounded-pill">
-        {date.getUTCMonth()}/{date.getUTCDate()}
+      <input
+        value={task.label}
+        readOnly={task.completed || !edit}
+        onBlur={() => setEdit(false)}
+        onChange={(event) => handleTaskLabel(event, task.id)}
+      />
+      <span>
+        {task.priority}
       </span>
     </li>
   );

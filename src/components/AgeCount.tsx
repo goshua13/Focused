@@ -28,7 +28,7 @@ const NewUserPrompt: React.FC<Props> = ({ dob }) => {
   return (
     <div className="age-container">
       <div className='text-left'>
-        <h4 className="text-muted mb-0">AGE</h4>
+        <h3 className="text-muted mb-0">AGE</h3>
         <div className="display-1 fw-bold text-white">
           {age.years}
           <sup>.{age.milliseconds}</sup>
