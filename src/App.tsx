@@ -6,6 +6,7 @@ import TaskInput from "./components/TaskInput";
 import { HandleTaskLabel, TaskType } from "./types";
 import { useLocalStorage } from "./hooks";
 import _ from "lodash";
+import Clock from "./components/Clock";
 
 function App() {
   const [tasks, setTasks] = useLocalStorage<Array<TaskType>>("tasks", []);
@@ -47,7 +48,8 @@ function App() {
   if (USER_AGE) {
     return (
       <div className="app-wrapper">
-        <AgeCount dob={new Date(parseInt(USER_AGE, 10))} />
+        {/* <AgeCount dob={new Date(parseInt(USER_AGE, 10))} /> */}
+        <Clock />
         <TaskInput addNewTask={addNewTask} />
         {/* 
         //@ts-ignore */}

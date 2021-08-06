@@ -12,7 +12,7 @@ body {
 input,
 button {
   padding: 5px 10px;
-  font-size: 35px;
+  font-size: 30px;
 }
 input {
   border: none;
@@ -76,7 +76,8 @@ input#dob {
   border-color: #ccc;
   background-color: #fff;
 }
-.age-container {
+.age-container,
+.clock-container {
   display: flex;
   flex-flow: column;
   justify-content: center;
@@ -84,10 +85,19 @@ input#dob {
   grid-column: 2/3;
   grid-row: 2/3;
 }
-.age-container sup {
-  top: -0.9rem;
-  font-size: 0.4em;
-  color: rgba(255, 255, 255, 0.7);
+.clock-container {
+  flex-flow: row nowrap;
+}
+
+.clock-container h2 {
+  font-size: 12rem;
+  color: white;
+}
+.clock-container .seconds {
+  color: white;
+  font-size: 20px;
+  margin-left: 10px;
+  margin-bottom: -30px;
 }
 .age-container .display-1 {
   font-size: 7rem;
@@ -112,19 +122,19 @@ input#dob {
   background-color: transparent;
   border-bottom: 3px solid white;
   position: relative;
-  font-size: 45px;
+  font-size: 25px;
 }
 
 .task-input-container .new-task-dropdown {
   width: 200px;
   border-bottom: 3px solid white;
-  font-size: 45px;
+  font-size: 35px;
 }
 /* task items css */
 .list-group-container {
   grid-column: 2/3;
   grid-row: 4/5;
-  font-size: 30px;
+  font-size: 25px;
 }
 .list-group {
   align-items: center;
