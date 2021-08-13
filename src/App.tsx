@@ -11,6 +11,7 @@ import Clock from "./components/Clock";
 function App() {
   const [tasks, setTasks] = useLocalStorage<Array<TaskType>>("tasks", []);
   const USER_AGE = localStorage.getItem("dob") || null;
+  const USER_NAME = localStorage.getItem("name") || null;
 
   const addNewTask = (taskLabel: string, priority: number) => {
     const newTask = {
@@ -45,11 +46,11 @@ function App() {
       )
     );
 
-  if (USER_AGE) {
+  if (USER_AGE && USER_NAME) {
     return (
       <div className="app-wrapper">
         {/* <AgeCount dob={new Date(parseInt(USER_AGE, 10))} /> */}
-        <Clock />
+        <Clock name={USER_NAME} />
         <TaskInput addNewTask={addNewTask} />
         {/* 
         //@ts-ignore */}

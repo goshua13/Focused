@@ -5,8 +5,12 @@ const NewUserPrompt = () => {
     event.preventDefault();
     // @ts-ignore
     const dob = new Date(event.target.dob.value);
+    // @ts-ignore
+    const fullName = event.target.fullName.value;
     localStorage.setItem("dob", JSON.stringify(dob.getTime()));
-    window.location.reload()
+    localStorage.setItem("name", fullName);
+
+    window.location.reload();
   };
 
   return (
@@ -14,8 +18,15 @@ const NewUserPrompt = () => {
       <div className="jumbotron">
         <h1 className="age-title"> What is your birthdate?</h1>
       </div>
-      <div className="d-flex justify-content-center">
-        <input type="date" name="dob" id="dob" />
+      <div className="justify-content-center d-grid">
+        <input
+          className="new-inputs"
+          placeholder="Enter your full name"
+          type="text"
+          name="fullName"
+          id="fullName"
+        />
+        <input className="new-inputs" type="date" name="dob" id="dob" />
         <button className="btn-regular" type="submit">
           Focus
         </button>

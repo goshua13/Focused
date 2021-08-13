@@ -29,12 +29,8 @@ input:read-only {
   border: none;
   cursor: pointer;
 }
-input#dob {
-  color: black;
-  width: unset;
-}
 ::placeholder {
-  color: rgba(255, 255, 255, 0.616);
+  color: rgba(190, 190, 190, 0.616);
 }
 .jumbotron {
   padding: 4rem 2rem;
@@ -53,7 +49,7 @@ input#dob {
   background-blend-mode: darken;
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
-  grid-template-rows: 20px 3fr 1fr 6fr 20px;
+  grid-template-rows: 20px 3fr 3fr 2fr 1fr 3fr 20px;
 }
 
 .btn-regular {
@@ -67,14 +63,17 @@ input#dob {
   padding: 0 20px;
 }
 
-#dob {
+.new-inputs {
   margin-right: 0.5rem;
+  margin-bottom: 20px;
   box-sizing: border-box;
   border-width: 1px;
   border-style: solid;
   border-radius: 0.25rem;
   border-color: #ccc;
   background-color: #fff;
+  color: black;
+  /* width: 50%; */
 }
 .age-container,
 .clock-container {
@@ -83,15 +82,17 @@ input#dob {
   justify-content: center;
   align-items: center;
   grid-column: 2/3;
-  grid-row: 2/3;
+  grid-row: 4/5;
 }
-.clock-container {
-  flex-flow: row nowrap;
-}
-
 .clock-container h2 {
   font-size: 12rem;
   color: white;
+  margin: 0;
+}
+.clock-container h1 {
+  /* font-size: 12rem; */
+  color: white;
+  margin: 0;
 }
 .clock-container .seconds {
   color: white;
@@ -111,7 +112,7 @@ input#dob {
 /* task input */
 .task-input-container {
   grid-column: 2/3;
-  grid-row: 3/4;
+  grid-row: 5/6;
   display: flex;
   margin-bottom: 50px;
 }
@@ -132,13 +133,15 @@ input#dob {
 }
 /* task items css */
 .list-group-container {
-  grid-column: 2/3;
-  grid-row: 4/5;
+  grid-column: 1/2;
+  grid-row: 3/6;
   font-size: 25px;
+  margin: 10px;
 }
 .list-group {
   align-items: center;
-  max-height: calc(100vh - 450px);
+  /* max-height: calc(100vh - 450px); */
+  max-height: 100%;
   overflow-y: auto;
 }
 .list-group .list-group-item {
@@ -147,8 +150,12 @@ input#dob {
   color: white;
   display: flex;
   justify-content: space-between;
-  border-bottom: 2px solid white;
+  border-bottom: 1px solid white;
   cursor: pointer;
+  font-size: 20px;
+}
+.list-group .list-group-item input {
+  font-size: 20px;
 }
 .list-group .list-group-item:hover:not(.disabled) {
   background: rgba(255, 255, 255, 0.205);
