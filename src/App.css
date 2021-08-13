@@ -48,7 +48,7 @@ input:read-only {
   background-size: cover;
   background-blend-mode: darken;
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-columns: 3fr 4fr 3fr;
   grid-template-rows: 20px 3fr 3fr 2fr 1fr 3fr 20px;
 }
 
@@ -85,14 +85,17 @@ input:read-only {
   grid-row: 4/5;
 }
 .clock-container h2 {
-  font-size: 12rem;
+  font-size: 13rem;
   color: white;
   margin: 0;
+  cursor: pointer;
 }
-.clock-container h1 {
-  /* font-size: 12rem; */
+.clock-container h3 {
+  font-size: 2rem;
+  white-space: nowrap;
   color: white;
-  margin: 0;
+  margin-top: -20px;
+  margin-bottom: 25px;
 }
 .clock-container .seconds {
   color: white;
@@ -100,8 +103,12 @@ input:read-only {
   margin-left: 10px;
   margin-bottom: -30px;
 }
-.age-container .display-1 {
-  font-size: 7rem;
+.age-container h2 {
+  font-size: 10rem;
+}
+.age-container sup {
+  font-size: 3rem;
+  top: 5.2rem
 }
 .age-title {
   color: rgb(173, 173, 173);
@@ -136,7 +143,7 @@ input:read-only {
   grid-column: 1/2;
   grid-row: 3/6;
   font-size: 25px;
-  margin: 10px;
+  margin: 25px;
 }
 .list-group {
   align-items: center;

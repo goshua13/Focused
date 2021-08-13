@@ -26,9 +26,6 @@ const Task: React.FC<Props> = ({
         onBlur={() => setEdit(false)}
         onChange={(event) => handleTaskLabel(event, task.id)}
       />
-      <span>
-        {task.priority}
-      </span>
     </li>
   );
 };

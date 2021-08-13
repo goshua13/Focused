@@ -1,25 +1,29 @@
-import "./App.css";
+import { useState } from "react";
+import _ from "lodash";
+
 import NewUserPrompt from "./components/NewUserPrompt";
 import AgeCount from "./components/AgeCount";
 import TaskList from "./components/TaskList";
 import TaskInput from "./components/TaskInput";
-import { HandleTaskLabel, TaskType } from "./types";
+import { AddTaskType, HandleTaskLabel, TaskType } from "./types";
 import { useLocalStorage } from "./hooks";
-import _ from "lodash";
 import Clock from "./components/Clock";
+
+import "./App.css";
 
 function App() {
   const [tasks, setTasks] = useLocalStorage<Array<TaskType>>("tasks", []);
+  const [toggleType, setToggleType] = useLocalStorage<boolean>("toggleType", false);
+  
   const USER_AGE = localStorage.getItem("dob") || null;
   const USER_NAME = localStorage.getItem("name") || null;
 
-  const addNewTask = (taskLabel: string, priority: number) => {
+  const addNewTask: AddTaskType = (taskLabel) => {
     const newTask = {
       id: Math.random(),
       label: taskLabel,
       completed: false,
       date_due: new Date(),
-      priority,
     };
     setTasks((oldList) => [...oldList, newTask]);
   };
@@ -31,8 +35,8 @@ function App() {
       )
     );
 
-  const removeTask = (id: number) =>
-    setTasks((oldList) => _.filter(oldList, (task) => task.id === id));
+  // const removeTask = (id: number) =>
+  //   setTasks((oldList) => _.filter(oldList, (task) => task.id === id));
 
   const reset = () => {
     setTasks([]);
@@ -49,8 +53,17 @@ function App() {
   if (USER_AGE && USER_NAME) {
     return (
       <div className="app-wrapper">
-        {/* <AgeCount dob={new Date(parseInt(USER_AGE, 10))} /> */}
-        <Clock name={USER_NAME} />
+        {toggleType ? (
+          <AgeCount
+            dob={new Date(parseInt(USER_AGE, 10))}
+            toggleTypeCallback={() => setToggleType((oldState) => !oldState)}
+          />
+        ) : (
+          <Clock
+            name={USER_NAME}
+            toggleTypeCallback={() => setToggleType((oldState) => !oldState)}
+          />
+        )}
         <TaskInput addNewTask={addNewTask} />
         {/* 
         //@ts-ignore */}

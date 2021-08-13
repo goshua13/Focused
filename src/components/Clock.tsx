@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 
 interface Props {
   name: string;
+  toggleTypeCallback: () => void;
 }
 
-const Clock: React.FC<Props> = ({ name }) => {
+const Clock: React.FC<Props> = ({ name, toggleTypeCallback }) => {
   const [date, setDate] = useState(new Date());
 
   useEffect(() => {
@@ -29,7 +30,7 @@ const Clock: React.FC<Props> = ({ name }) => {
 
   return (
     <div className="clock-container">
-      <h2 className="hour-minute">
+      <h2 className="hour-minute" onClick={toggleTypeCallback}>
         {date.getHours() - (date.getHours() > 12 ? 12 : 0)}:
         {(date.getMinutes() < 10 ? "0" : "") + date.getMinutes()}
       </h2>

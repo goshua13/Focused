@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 
 interface Props {
   dob: Date;
+  toggleTypeCallback: () => void;
 }
 
-const NewUserPrompt: React.FC<Props> = ({ dob }) => {
+const NewUserPrompt: React.FC<Props> = ({ dob, toggleTypeCallback }) => {
   const [age, setAge] = useState<{
     years: null | string;
     milliseconds: null | string;
@@ -21,16 +22,15 @@ const NewUserPrompt: React.FC<Props> = ({ dob }) => {
   };
 
   useEffect(() => {
-    //@ts-ignore
     setInterval(renderAge, 100);
   });
 
   return (
     <div className="age-container">
-      <div className='text-left'>
+      <div className="text-left" style={{cursor: 'pointer'}} onClick={toggleTypeCallback}>
         <h3 className="text-muted mb-0">AGE</h3>
-        <div className="display-1 fw-bold text-white">
-          {age.years}
+        <div className="d-flex fw-bold text-white">
+          <h2>{age.years}</h2>
           <sup>.{age.milliseconds}</sup>
         </div>
       </div>

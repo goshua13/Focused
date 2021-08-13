@@ -10,9 +10,7 @@ const TaskInput: React.FC<Props> = ({ addNewTask }) => {
     event.preventDefault();
     // @ts-ignore
     const inputValue = event.target.taskInput.value;
-    // @ts-ignore
-    const priorityValue = event.target.priority.value;
-    addNewTask(inputValue, priorityValue);
+    addNewTask(inputValue);
     // @ts-ignore
     event.target.taskInput.value = "";
   };
@@ -25,18 +23,6 @@ const TaskInput: React.FC<Props> = ({ addNewTask }) => {
         className="new-task-input"
         placeholder="+ Add New Task"
       />
-
-      <input
-        className="new-task-dropdown"
-        name="priority"
-        placeholder="Priority"
-        type="number"
-        min="1"
-        max="5"
-        defaultValue={1}
-      />
-
-      <button className="d-none" type="submit" />
     </form>
   );
 };
