@@ -20,11 +20,11 @@ const Clock: React.FC<Props> = ({ name, toggleTypeCallback }) => {
 
   const switchGreeting = (hour: number) => {
     if (hour < 12) {
-      return "Good Morning";
+      return "Good morning";
     } else if (hour < 18) {
-      return "Good Afernoon";
+      return "Good afernoon";
     } else {
-      return "Good Evening";
+      return "Good evening";
     }
   };
 

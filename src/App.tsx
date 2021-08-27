@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import _ from "lodash";
 
 import NewUserPrompt from "./components/NewUserPrompt";
@@ -10,14 +10,35 @@ import { useLocalStorage } from "./hooks";
 import Clock from "./components/Clock";
 
 import "./App.css";
+import { Fact } from "./components/Fact";
 
 function App() {
   const [tasks, setTasks] = useLocalStorage<Array<TaskType>>("tasks", []);
-  const [toggleType, setToggleType] = useLocalStorage<boolean>("toggleType", false);
-  
+  const [facts, setFacts] = useLocalStorage<Array<{}>>("fact", []);
+  const [toggleType, setToggleType] = useLocalStorage<boolean>(
+    "toggleType",
+    false
+  );
+
   const USER_AGE = localStorage.getItem("dob") || null;
   const USER_NAME = localStorage.getItem("name") || null;
 
+  const fetchFact = async () => {
+    const today = new Date();
+   try {
+
+    const res = await fetch(`https://byabbe.se/on-this-day/${today.getMonth()+1}/${today.getDate()}/events.json`);
+    const data = await res.json();
+    setFacts(data.events)
+   } catch(err) {
+     console.log(err)
+   }
+    // setfact(res.da)
+  };
+
+  useEffect(() => {
+    fetchFact();
+  }, []);
   const addNewTask: AddTaskType = (taskLabel) => {
     const newTask = {
       id: Math.random(),
@@ -39,7 +60,6 @@ function App() {
   //   setTasks((oldList) => _.filter(oldList, (task) => task.id === id));
 
   const reset = () => {
-    setTasks([]);
     setTasks([]);
   };
 
@@ -73,6 +93,7 @@ function App() {
           resetCallback={reset}
           handleTaskLabel={handleTaskLabel}
         />
+        <Fact facts={facts} />
       </div>
     );
   }

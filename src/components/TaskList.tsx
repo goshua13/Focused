@@ -16,6 +16,9 @@ const TaskList: React.FC<Props> = ({
   resetCallback,
   handleTaskLabel
 }) => {
+  if(_.isEmpty(tasks)){
+    return null
+  }
   return (
     <div className="list-group-container">
       <div className="d-flex justify-content-between mb-2">
