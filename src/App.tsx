@@ -22,17 +22,22 @@ function App() {
 
   const USER_AGE = localStorage.getItem("dob") || null;
   const USER_NAME = localStorage.getItem("name") || null;
+  const today = new Date();
 
   const fetchFact = async () => {
-    const today = new Date();
-   try {
-
-    const res = await fetch(`https://byabbe.se/on-this-day/${today.getMonth()+1}/${today.getDate()}/events.json`);
-    const data = await res.json();
-    setFacts(data.events)
-   } catch(err) {
-     console.log(err)
-   }
+    const day = _.get(facts, "date").split(" ");
+    if (today.getDate() == day[1]) return;
+    try {
+      const res = await fetch(
+        `https://byabbe.se/on-this-day/${
+          today.getMonth() + 1
+        }/${today.getDate()}/events.json`
+      );
+      const data = await res.json();
+      setFacts(data);
+    } catch (err) {
+      console.log(err);
+    }
     // setfact(res.da)
   };
 
@@ -69,10 +74,24 @@ function App() {
         task.id === id ? { ...task, label: event.target.value } : task
       )
     );
-
+    const switchImage = (hour: number) => {
+      if (hour < 12) {
+        return 863332;
+      } else if (hour < 18) {
+        return 99958844;
+      } else {
+        return 4932946;
+      }
+    };
+  
   if (USER_AGE && USER_NAME) {
     return (
-      <div className="app-wrapper">
+      <div
+        className="app-wrapper"
+        style={{
+          backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(" + `https://source.unsplash.com/collection/${switchImage(today.getHours())}/` + ")"
+        }}
+      >
         {toggleType ? (
           <AgeCount
             dob={new Date(parseInt(USER_AGE, 10))}
@@ -93,7 +112,7 @@ function App() {
           resetCallback={reset}
           handleTaskLabel={handleTaskLabel}
         />
-        <Fact facts={facts} />
+        <Fact facts={_.get(facts, "events", [])} />
       </div>
     );
   }

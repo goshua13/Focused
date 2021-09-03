@@ -9,10 +9,11 @@ interface Props {
 export const Fact: React.FC<Props> = ({facts}) => {
     const [factCounter, setFactCounter] = useLocalStorage('factCount', -1)
 
-    useEffect(() => setFactCounter(oldState => oldState === facts.length - 1 ? oldState : oldState + 1), [])
+    useEffect(() => setFactCounter(oldState => oldState >= facts.length ? 0 : oldState + 1), [])
+    
     return (
         <div className='fact-container'>
-            On this day: {_.get(facts, `[${factCounter}].description`, '')}
+            On this day: In {_.get(facts, `[${factCounter}].year`, '')}, {_.get(facts, `[${factCounter}].description`, '')}
         </div>
     )
 }
