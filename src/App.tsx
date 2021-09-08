@@ -25,8 +25,6 @@ function App() {
   const today = new Date();
 
   const fetchFact = async () => {
-    const day = _.get(facts, "date").split(" ");
-    if (today.getDate() == day[1]) return;
     try {
       const res = await fetch(
         `https://byabbe.se/on-this-day/${
@@ -42,7 +40,14 @@ function App() {
   };
 
   useEffect(() => {
-    fetchFact();
+    try {
+      const day = _.get(facts, "date").split(" ");
+      if (today.getDate() != day[1]) {
+        fetchFact();
+      }
+    } catch {
+      fetchFact();
+    }
   }, []);
   const addNewTask: AddTaskType = (taskLabel) => {
     const newTask = {
@@ -74,22 +79,27 @@ function App() {
         task.id === id ? { ...task, label: event.target.value } : task
       )
     );
-    const switchImage = (hour: number) => {
-      if (hour < 12) {
-        return 863332;
-      } else if (hour < 18) {
-        return 99958844;
-      } else {
-        return 4932946;
-      }
-    };
-  
+  const switchImage = (hour: number) => {
+    if (hour < 12) {
+      return 863332;
+    } else if (hour < 18) {
+      return 99958844;
+    } else {
+      return 4932946;
+    }
+  };
+
   if (USER_AGE && USER_NAME) {
     return (
       <div
         className="app-wrapper"
         style={{
-          backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(" + `https://source.unsplash.com/collection/${switchImage(today.getHours())}/` + ")"
+          backgroundImage:
+            "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(" +
+            `https://source.unsplash.com/collection/${switchImage(
+              today.getHours()
+            )}/` +
+            ")",
         }}
       >
         {toggleType ? (
