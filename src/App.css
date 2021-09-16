@@ -83,14 +83,14 @@ input:read-only {
   grid-row: -1/1;
 }
 .clock-container h2 {
-  font-size: 14rem;
+  font-size: 13rem;
   color: white;
   margin: 0;
   cursor: pointer;
   letter-spacing: 5px;
 }
 .clock-container h3 {
-  font-size: 3rem;
+  font-size: 2.7rem;
   white-space: nowrap;
   color: white;
   margin-top: -20px;
@@ -137,6 +137,7 @@ input:read-only {
   border-bottom: 3px solid white;
   font-size: 35px;
 }
+
 /* task items css */
 .list-group-container {
   grid-column: 1/2;
@@ -150,33 +151,37 @@ input:read-only {
   max-height: 100%;
   overflow-y: auto;
 }
-.list-group .list-group-item {
+.list-group-item {
   width: 100%;
   background-color: transparent;
   color: white;
+  border-bottom: none;
+  cursor: pointer;
+  font-size: 20px;
+  align-items: center;
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid white;
+  width: 100%;
+  background-color: transparent;
   cursor: pointer;
   font-size: 20px;
 }
-.list-group .list-group-item input {
-  font-size: 20px;
+.list-group-item svg{
+  display: none;
 }
-.list-group .list-group-item:hover:not(.disabled) {
+.list-group-item:hover svg{
+  display: block;
+}
+
+
+.list-group-item.dragged {
   background: rgba(255, 255, 255, 0.205);
-}
-.list-group .new-task-input:hover {
-  border: none;
-  outline: none;
-  border-bottom: 5px solid white;
 }
 
 .list-group .list-group-item.completed {
   text-decoration: line-through;
   opacity: 0.5;
 }
-
 
 /* fact css */
 .fact-container {
@@ -185,5 +190,14 @@ input:read-only {
   text-align: center;
   color: white;
   font-size: 1.2rem;
-  padding: 0 10px
+  padding: 0 10px;
+}
+
+.btn {
+  color: white;
+  background-color: rgba(255, 255, 255, 0.134);
+}
+.btn.btn-sm {
+  font-size: 0.7rem;
+  border-radius: 0.2rem;
 }

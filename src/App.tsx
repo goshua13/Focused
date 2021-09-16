@@ -5,12 +5,13 @@ import NewUserPrompt from "./components/NewUserPrompt";
 import AgeCount from "./components/AgeCount";
 import TaskList from "./components/TaskList";
 import TaskInput from "./components/TaskInput";
-import { AddTaskType, HandleTaskLabel, TaskType } from "./types";
+import { AddTaskType, handleReorderType, TaskType } from "./types";
 import { useLocalStorage } from "./hooks";
 import Clock from "./components/Clock";
 
 import "./App.css";
 import { Fact } from "./components/Fact";
+import { arrayMove } from "react-movable";
 
 function App() {
   const [tasks, setTasks] = useLocalStorage<Array<TaskType>>("tasks", []);
@@ -49,36 +50,29 @@ function App() {
       fetchFact();
     }
   }, []);
+  const handleTaskListReorder = ({
+    oldIndex,
+    newIndex,
+  }: handleReorderType) => {
+    setTasks((oldList) => arrayMove(oldList, oldIndex, newIndex));
+  };
+
   const addNewTask: AddTaskType = (taskLabel) => {
     const newTask = {
       id: Math.random(),
       label: taskLabel,
-      completed: false,
-      date_due: new Date(),
+      date_created: new Date(),
     };
     setTasks((oldList) => [...oldList, newTask]);
   };
 
   const toggleTaskComplete = (id: number) =>
-    setTasks((oldList) =>
-      _.map(oldList, (task) =>
-        task.id === id ? { ...task, completed: true } : task
-      )
-    );
-
-  // const removeTask = (id: number) =>
-  //   setTasks((oldList) => _.filter(oldList, (task) => task.id === id));
+    setTasks((oldList) => _.filter(oldList, (task) => task.id !== id));
 
   const reset = () => {
     setTasks([]);
   };
 
-  const handleTaskLabel: HandleTaskLabel = (event, id) =>
-    setTasks((oldList) =>
-      _.map(oldList, (task) =>
-        task.id === id ? { ...task, label: event.target.value } : task
-      )
-    );
   const switchImage = (hour: number) => {
     if (hour < 12) {
       return 863332;
@@ -117,10 +111,10 @@ function App() {
         {/* 
         //@ts-ignore */}
         <TaskList
-          tasks={_.sortBy(tasks, ["completed", "priority"])}
+          tasks={tasks}
           toggleTaskComplete={toggleTaskComplete}
           resetCallback={reset}
-          handleTaskLabel={handleTaskLabel}
+          handleReorder={handleTaskListReorder}
         />
         <Fact facts={_.get(facts, "events", [])} />
       </div>

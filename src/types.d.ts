@@ -1,11 +1,10 @@
 export type TaskType = {
-    id: number
-    label: string,
-    completed: boolean,
-    date_due: Date
-    edit?: boolean
+  id: number
+  label: string,
+  date_created: Date
+  edit?: boolean
 }
+export type handleReorderType = { oldIndex: number, newIndex: number }
 
-  
-  export type HandleTaskLabel = (event: React.InputHTMLAttributes, id: number) => void;  
-  export type AddTaskType = (taskLabel: string) => void;
+
+export type AddTaskType = (taskLabel: string) => void;

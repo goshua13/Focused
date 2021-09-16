@@ -1,34 +1,56 @@
 import React from "react";
 import _ from "lodash";
-import { TaskType, HandleTaskLabel } from "../types";
-import Task from "./Task";
+import { List, arrayMove } from "react-movable";
+
+import { TaskType, handleReorderType } from "../types";
+import { ReactComponent as DragSvg } from "../assets/six-dots.svg";
 
 interface Props {
-  tasks: Array<TaskType> | null;
+  tasks: TaskType[];
   toggleTaskComplete: (id: number) => void;
   resetCallback: () => void;
-  handleTaskLabel: HandleTaskLabel
+  handleReorder: ({ oldIndex, newIndex }: handleReorderType) => void;
 }
 
 const TaskList: React.FC<Props> = ({
-  tasks,
+  tasks = [],
   toggleTaskComplete,
   resetCallback,
-  handleTaskLabel
+  handleReorder,
 }) => {
-  if(_.isEmpty(tasks)){
-    return null
+  if (_.isEmpty(tasks)) {
+    return null;
   }
   return (
     <div className="list-group-container">
       <div className="d-flex justify-content-between mb-2">
-        <button className="btn btn-primary btn-sm" onClick={resetCallback}>
-          CLEAR ALL TASKS
+        <button className="btn btn-sm" onClick={resetCallback}>
+          CLEAR TASKS
         </button>
-        <small className="fs-6 text text-white">double click to complete task</small>
+        <small className="fs-6 text text-white">
+          double click to complete task
+        </small>
       </div>
-
-      <ul className="list-group list-group-flush">
+      <List
+        values={tasks}
+        onChange={handleReorder}
+        renderList={({ children, props }) => (
+          <ul className="list-group list-group-flush" {...props}>
+            {children}
+          </ul>
+        )}
+        renderItem={({ value: task, props, isDragged }) => (
+          <li
+            {...props}
+            className={`list-group-item${isDragged ? " dragged" : ""}`}
+            onDoubleClick={() => toggleTaskComplete(task.id)}
+          >
+            {task.label}
+            <DragSvg />
+          </li>
+        )}
+      />
+      {/* <ul className="list-group list-group-flush">
         {_.isEmpty(tasks) ? (
           <li className="list-group-item disabled">YOU HAVE NO TASKS...</li>
         ) : (
@@ -41,7 +63,7 @@ const TaskList: React.FC<Props> = ({
             />
           ))
         )}
-      </ul>
+      </ul> */}
     </div>
   );
 };
