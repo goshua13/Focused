@@ -27,11 +27,9 @@ const TaskList: React.FC<Props> = ({
         <button className="btn btn-sm" onClick={resetCallback}>
           CLEAR TASKS
         </button>
-        <small className="fs-6 text text-white">
-          double click to complete task
-        </small>
       </div>
       <List
+      removableByMove
         values={tasks}
         onChange={handleReorder}
         renderList={({ children, props }) => (
@@ -39,31 +37,31 @@ const TaskList: React.FC<Props> = ({
             {children}
           </ul>
         )}
-        renderItem={({ value: task, props, isDragged }) => (
+        renderItem={({
+          value: task,
+          props,
+          isDragged,
+          index,
+          isOutOfBounds,
+        }) => (
           <li
             {...props}
-            className={`list-group-item${isDragged ? " dragged" : ""}`}
-            onDoubleClick={() => toggleTaskComplete(task.id)}
+            className={`list-group-item${isDragged ? " dragged" : ""}${
+              isOutOfBounds ? " out-of-bounds" : ""
+            }`}
           >
             {task.label}
-            <DragSvg />
+            <button
+              className="no-style"
+              onClick={() =>
+                typeof index !== "undefined" && toggleTaskComplete(index)
+              }
+            >
+              x
+            </button>
           </li>
         )}
       />
-      {/* <ul className="list-group list-group-flush">
-        {_.isEmpty(tasks) ? (
-          <li className="list-group-item disabled">YOU HAVE NO TASKS...</li>
-        ) : (
-          _.map(tasks, (task: TaskType) => (
-            <Task
-              key={task.id}
-              task={task}
-              toggleTaskComplete={toggleTaskComplete}
-              handleTaskLabel={handleTaskLabel}
-            />
-          ))
-        )}
-      </ul> */}
     </div>
   );
 };

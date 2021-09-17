@@ -11,7 +11,7 @@ import Clock from "./components/Clock";
 
 import "./App.css";
 import { Fact } from "./components/Fact";
-import { arrayMove } from "react-movable";
+import { arrayMove, arrayRemove } from "react-movable";
 
 function App() {
   const [tasks, setTasks] = useLocalStorage<Array<TaskType>>("tasks", []);
@@ -50,12 +50,12 @@ function App() {
       fetchFact();
     }
   }, []);
-  const handleTaskListReorder = ({
-    oldIndex,
-    newIndex,
-  }: handleReorderType) => {
-    setTasks((oldList) => arrayMove(oldList, oldIndex, newIndex));
-  };
+  const handleTaskListReorder = ({ oldIndex, newIndex }: handleReorderType) =>
+    setTasks((oldList) =>
+      newIndex === -1
+        ? arrayRemove(oldList, oldIndex)
+        : arrayMove(oldList, oldIndex, newIndex)
+    );
 
   const addNewTask: AddTaskType = (taskLabel) => {
     const newTask = {
@@ -67,7 +67,7 @@ function App() {
   };
 
   const toggleTaskComplete = (id: number) =>
-    setTasks((oldList) => _.filter(oldList, (task) => task.id !== id));
+    setTasks((oldList) => arrayRemove(oldList, id));
 
   const reset = () => {
     setTasks([]);
