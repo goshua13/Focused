@@ -158,23 +158,21 @@ input:read-only {
   color: white;
   border-bottom: none;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 25px;
   align-items: center;
   display: flex;
   justify-content: space-between;
   width: 100%;
   background-color: transparent;
   cursor: pointer;
-  font-size: 20px;
   height: 40px;
 }
-.list-group-item .no-style{
+.list-group-item .no-style {
   display: none;
 }
-.list-group-item:hover .no-style{
+.list-group-item:hover .no-style {
   display: block;
 }
-
 
 .list-group-item.dragged {
   background: rgba(255, 255, 255, 0.205);
@@ -210,7 +208,7 @@ input:read-only {
   margin-left: 15px;
 }
 .btn:hover {
-  color: teal
+  color: teal;
 }
 .btn.btn-sm {
   font-size: 0.7rem;

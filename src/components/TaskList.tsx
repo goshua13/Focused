@@ -21,6 +21,7 @@ const TaskList: React.FC<Props> = ({
   if (_.isEmpty(tasks)) {
     return null;
   }
+  console.log(tasks);
   return (
     <div className="list-group-container">
       <div className="d-flex justify-content-between mb-2">
@@ -29,7 +30,7 @@ const TaskList: React.FC<Props> = ({
         </button>
       </div>
       <List
-      removableByMove
+        removableByMove
         values={tasks}
         onChange={handleReorder}
         renderList={({ children, props }) => (
@@ -50,7 +51,7 @@ const TaskList: React.FC<Props> = ({
               isOutOfBounds ? " out-of-bounds" : ""
             }`}
           >
-            {task.label}
+            {_.get(task, "label")}
             <button
               className="no-style"
               onClick={() =>

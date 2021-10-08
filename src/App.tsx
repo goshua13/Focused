@@ -53,7 +53,7 @@ function App() {
   const handleTaskListReorder = ({ oldIndex, newIndex }: handleReorderType) =>
     setTasks((oldList) =>
       newIndex === -1
-        ? arrayRemove(oldList, oldIndex)
+        ? _.filter(oldList, (item, i) => i !== oldIndex)
         : arrayMove(oldList, oldIndex, newIndex)
     );
 
