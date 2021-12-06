@@ -51,7 +51,7 @@ const TaskList: React.FC<Props> = ({
               isOutOfBounds ? " out-of-bounds" : ""
             }`}
           >
-            {_.get(task, "label")}
+            <span> {_.get(task, "label")}</span>
             <button
               className="no-style"
               onClick={() =>

@@ -50,6 +50,7 @@ function App() {
       fetchFact();
     }
   }, []);
+
   const handleTaskListReorder = ({ oldIndex, newIndex }: handleReorderType) =>
     setTasks((oldList) =>
       newIndex === -1
