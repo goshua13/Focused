@@ -84,6 +84,8 @@ function App() {
     }
   };
 
+  // `https://api.trello.com/1/members/me/boards?key={980d0b509c7499750233ed64052546ef}&token={78fdb2c17481cf946b769146e315ed15ac75de00f1fc96a62278d40241d0e64c}`
+
   if (USER_AGE && USER_NAME) {
     return (
       <div
