@@ -10,9 +10,11 @@ const TaskInput: React.FC<Props> = ({ addNewTask }) => {
     event.preventDefault();
     // @ts-ignore
     const inputValue = event.target.taskInput.value;
-    addNewTask(inputValue);
-    // @ts-ignore
-    event.target.taskInput.value = "";
+    if (inputValue.length > 0) {
+      addNewTask(inputValue);
+      // @ts-ignore
+      event.target.taskInput.value = "";
+    }
   };
 
   return (

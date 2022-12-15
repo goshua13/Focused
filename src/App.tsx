@@ -61,17 +61,27 @@ function App() {
   const addNewTask: AddTaskType = (taskLabel) => {
     const newTask = {
       id: Math.random(),
+      completed: false,
       label: taskLabel,
       date_created: new Date(),
     };
+
     setTasks((oldList) => [...oldList, newTask]);
   };
 
-  const toggleTaskComplete = (id: number) =>
+  const deleteTask = (id: number) =>
     setTasks((oldList) => arrayRemove(oldList, id));
 
+  const toggleTaskComplete = (id: number) => {
+    setTasks((oldList) =>
+      oldList.map((task) =>
+        task.id === id ? { ...task, completed: true } : task
+      )
+    );
+  };
+
   const reset = () => {
-    setTasks([]);
+    setTasks((oldList) => oldList.filter((task) => !task.completed));
   };
 
   const switchImage = (hour: number) => {
@@ -83,8 +93,6 @@ function App() {
       return 4932946;
     }
   };
-
-  // `https://api.trello.com/1/members/me/boards?key={980d0b509c7499750233ed64052546ef}&token={78fdb2c17481cf946b769146e315ed15ac75de00f1fc96a62278d40241d0e64c}`
 
   if (USER_AGE && USER_NAME) {
     return (
@@ -115,6 +123,7 @@ function App() {
         //@ts-ignore */}
         <TaskList
           tasks={tasks}
+          deleteTask={deleteTask}
           toggleTaskComplete={toggleTaskComplete}
           resetCallback={reset}
           handleReorder={handleTaskListReorder}

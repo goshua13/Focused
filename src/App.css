@@ -73,6 +73,23 @@ input:read-only {
   color: black;
   /* width: 50%; */
 }
+.circle {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: 1px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 12px;
+  font-size: 16px;
+  padding-top: 7px;
+  background-color: transparent;
+  color: white;
+}
+.circle:hover {
+  border: 2px dashed rgb(74, 0, 0);
+}
 .age-container,
 .clock-container {
   display: flex;
@@ -158,14 +175,13 @@ input:read-only {
   color: white;
   border: 1px solid rgba(255, 255, 255, 0.199);
   cursor: pointer;
-  padding: 0 1rem !important;
+  padding: 0 0.5rem !important;
   font-size: 25px;
   align-items: center;
   display: flex;
   justify-content: space-between;
   width: 100%;
   background-color: transparent;
-  cursor: pointer;
 }
 .list-group-item .no-style {
   visibility: hidden;
@@ -184,7 +200,7 @@ input:read-only {
   background-color: rgba(255, 99, 71, 0.555);
 }
 
-.list-group .list-group-item.completed {
+.list-group .list-group-item.complete span {
   text-decoration: line-through;
   opacity: 0.5;
 }
@@ -214,9 +230,15 @@ input:read-only {
   margin-left: 15px;
 }
 .btn:hover {
-  color: teal;
+  color: rgb(0, 74, 74);
+  border: 1px solid rgb(0, 74, 74);
+}
+.btn.active {
+  color: rgb(74, 0, 0);
+  border: 1px solid rgb(74, 0, 0);
 }
 .btn.btn-sm {
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   border-radius: 0.2rem;
+  font-weight: 600;
 }
