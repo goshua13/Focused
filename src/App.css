@@ -204,6 +204,9 @@ input:read-only {
   text-decoration: line-through;
   opacity: 0.5;
 }
+.ai-input {
+  background-color: rgba(27, 26, 26, 0.285);
+}
 .no-style {
   background-color: transparent;
   border: none;
@@ -214,14 +217,26 @@ input:read-only {
   align-items: center;
   justify-content: center;
 }
-/* fact css */
-.fact-container {
-  grid-row: 7;
-  grid-column: -1/1;
+
+/* ai css */
+.ai-container {
+  grid-row: 2;
+  grid-column: 2/3;
+  display: flex;
+  flex-flow: column wrap;
   text-align: center;
+  justify-content: center;
+  align-items: center;
+  row-gap: 15px;
   color: white;
   font-size: 1.2rem;
   padding: 0 10px;
+}
+.ai-response {
+}
+.ai-container .ai-form {
+  width: 100%;
+  /* margin: 10px; */
 }
 
 .btn {

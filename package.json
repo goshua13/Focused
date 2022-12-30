@@ -12,6 +12,7 @@
     "@types/react-dom": "^17.0.9",
     "bootstrap": "^5.0.2",
     "lodash": "^4.17.21",
+    "openai": "^3.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-movable": "^2.5.4",
@@ -20,8 +21,8 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "react-scripts --openssl-legacy-provider start",
-    "build": "react-scripts --openssl-legacy-provider build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

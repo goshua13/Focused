@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Focused",
   "author": "The Brogrammer",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "description": "Replace new tab screen with your focus and motivation",
   "icons": {
     "16": "favicon.ico"

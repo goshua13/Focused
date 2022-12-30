@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import _ from "lodash";
 
 import NewUserPrompt from "./components/NewUserPrompt";
@@ -8,9 +8,10 @@ import TaskInput from "./components/TaskInput";
 import { AddTaskType, handleReorderType, TaskType } from "./types";
 import { useLocalStorage } from "./hooks";
 import Clock from "./components/Clock";
+// import { Fact } from "./components/Fact";
+import AI from "./components/AI";
 
 import "./App.css";
-import { Fact } from "./components/Fact";
 import { arrayMove, arrayRemove } from "react-movable";
 
 function App() {
@@ -128,7 +129,8 @@ function App() {
           resetCallback={reset}
           handleReorder={handleTaskListReorder}
         />
-        <Fact facts={_.get(facts, "events", [])} />
+        <AI />
+        {/* <Fact facts={_.get(facts, "events", [])} /> */}
       </div>
     );
   }
