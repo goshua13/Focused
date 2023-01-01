@@ -249,8 +249,8 @@ input:read-only {
   border: 1px solid rgb(0, 74, 74);
 }
 .btn.active {
-  color: rgb(74, 0, 0);
-  border: 1px solid rgb(74, 0, 0);
+  color: rgb(26, 122, 131);
+  border: 1px solid rgb(26, 122, 131);
 }
 .btn.btn-sm {
   font-size: 0.8rem;

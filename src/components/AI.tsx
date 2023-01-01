@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { Configuration, OpenAIApi } from "openai";
 import { training as trainingModel } from "../assets/training.json";
 import loadingGif from "../assets/loading.gif";
@@ -9,7 +9,6 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-let entireConversation = trainingModel;
 const AI: React.FC = () => {
   const [prompt, setPrompt] = useState("");
   const [botResponse, setBotResponse] = useState<string>("");
@@ -19,18 +18,18 @@ const AI: React.FC = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      entireConversation += `You: ${prompt}\n`;
+      let temp = trainingModel;
+      temp += `You: ${prompt}\n`;
       const completion = await openai.createCompletion({
         model: "text-davinci-002",
-        prompt: entireConversation,
+        prompt: temp,
         max_tokens: 60,
-        temperature: 0,
+        temperature: 0.5,
         top_p: 0.3,
         presence_penalty: 0,
         frequency_penalty: 0.5,
       });
       const response = completion.data.choices[0].text;
-      entireConversation += `${response}\n`;
       const cleanedRes =
         response?.replace("Marv:", "").replace(/[\r\n]/gm, "") || "";
       setBotResponse(cleanedRes);
