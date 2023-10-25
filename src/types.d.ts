@@ -1,6 +1,5 @@
 export type TaskType = {
   id: number
-  completed: boolean,
   label: string,
   date_created: Date
   edit?: boolean

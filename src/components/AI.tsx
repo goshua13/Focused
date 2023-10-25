@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { FormEvent, useState } from "react";
 import { Configuration, OpenAIApi } from "openai";
-import { training as trainingModel } from "../assets/training.json";
+import { israelroast as trainingModel } from "../assets/training.json";
 import loadingGif from "../assets/loading.gif";
 
 const configuration = new Configuration({
@@ -23,7 +23,7 @@ const AI: React.FC = () => {
       const completion = await openai.createCompletion({
         model: "text-davinci-002",
         prompt: temp,
-        max_tokens: 60,
+        max_tokens: 100,
         temperature: 0.5,
         top_p: 0.3,
         presence_penalty: 0,

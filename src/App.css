@@ -204,6 +204,9 @@ input:read-only {
   text-decoration: line-through;
   opacity: 0.5;
 }
+.list-group .list-group-item.complete {
+  cursor: auto;
+}
 .ai-input {
   background-color: rgba(27, 26, 26, 0.285);
 }
@@ -216,6 +219,9 @@ input:read-only {
   height: 37px;
   align-items: center;
   justify-content: center;
+}
+.no-style:hover {
+  color: red;
 }
 
 /* ai css */

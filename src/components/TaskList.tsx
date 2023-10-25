@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import _ from "lodash";
 import { List } from "react-movable";
 
@@ -6,8 +6,9 @@ import { TaskType, handleReorderType } from "../types";
 
 interface Props {
   tasks: TaskType[];
+  completedTasks: TaskType[];
   deleteTask: (id: number) => void;
-  toggleTaskComplete: (id: number) => void;
+  toggleTaskComplete: (id: number, task: TaskType) => void;
   resetCallback: () => void;
   handleReorder: ({ oldIndex, newIndex }: handleReorderType) => void;
   filterTasks: (completed: boolean) => void;
@@ -15,13 +16,22 @@ interface Props {
 
 const TaskList: React.FC<Props> = ({
   tasks = [],
+  completedTasks = [],
   deleteTask,
   resetCallback,
   toggleTaskComplete,
   handleReorder,
 }) => {
   const [showActive, setShowActive] = React.useState(true);
-  if (_.isEmpty(tasks)) {
+
+  useEffect(() => {
+    if (_.isEmpty(tasks)) {
+      setShowActive(false);
+    } else if (_.isEmpty(completedTasks)) {
+      setShowActive(true);
+    }
+  }, [tasks]);
+  if (_.isEmpty(tasks) && _.isEmpty(completedTasks)) {
     return null;
   }
   return (
@@ -30,15 +40,17 @@ const TaskList: React.FC<Props> = ({
         <div className="d-flex">
           <button
             onClick={() => setShowActive(true)}
-            className={`m-0 btn btn-sm btn-outline${
+            className={`mx-0 me-2 btn btn-sm btn-outline${
               showActive ? " active" : ""
-            }`}
+            }${_.isEmpty(tasks) ? " d-none" : ""}`}
           >
             Active
           </button>
           <button
             onClick={() => setShowActive(false)}
-            className={`btn btn-sm btn-outline${showActive ? "" : " active"}`}
+            className={`mx-0 btn btn-sm btn-outline${
+              showActive ? "" : " active"
+            } ${_.isEmpty(completedTasks) ? " d-none" : ""}`}
           >
             Completed
           </button>
@@ -55,46 +67,65 @@ const TaskList: React.FC<Props> = ({
           </button>
         )}
       </div>
-      <List
-        removableByMove
-        values={tasks.filter((task) => task.completed !== showActive)}
-        onChange={handleReorder}
-        renderList={({ children, props }) => (
-          <ul className="list-group list-group-flush" {...props}>
-            {children}
-          </ul>
-        )}
-        renderItem={({
-          value: task,
-          props,
-          isDragged,
-          index,
-          isOutOfBounds,
-        }) => (
-          <li
-            {...props}
-            className={`list-group-item${task.completed ? " complete" : ""}${
-              isDragged ? " dragged" : ""
-            }${isOutOfBounds ? " out-of-bounds" : ""}`}
-          >
-            <div className="d-flex align-items-center">
-              <button
-                className="circle"
-                onClick={() => toggleTaskComplete(task.id)}
-              >
-                {task.completed ? <strong>&#10003;</strong> : ""}
-              </button>
-              <span> {_.get(task, "label")}</span>
-            </div>
-            <button
-              className="no-style"
-              onClick={() => typeof index !== "undefined" && deleteTask(index)}
+      {showActive ? (
+        <List
+          removableByMove
+          values={tasks}
+          onChange={handleReorder}
+          renderList={({ children, props }) => (
+            <ul className="list-group list-group-flush" {...props}>
+              {children}
+            </ul>
+          )}
+          renderItem={({
+            value: task,
+            props,
+            isDragged,
+            index,
+            isOutOfBounds,
+          }) => (
+            <li
+              {...props}
+              className={`list-group-item${isDragged ? " dragged" : ""}${
+                isOutOfBounds ? " out-of-bounds" : ""
+              }`}
             >
-              x
-            </button>
-          </li>
-        )}
-      />
+              <div className="d-flex align-items-center">
+                <button
+                  className="circle"
+                  onClick={() => toggleTaskComplete(task.id, task)}
+                />
+                <span> {_.get(task, "label")}</span>
+              </div>
+              <button
+                className="no-style"
+                onClick={() =>
+                  typeof index !== "undefined" && deleteTask(index)
+                }
+              >
+                x
+              </button>
+            </li>
+          )}
+        />
+      ) : (
+        <ul className="list-group list-group-flush">
+          {completedTasks.map((task) => (
+            <li className="list-group-item complete">
+              <div className="d-flex align-items-center">
+                {console.log({ task })}
+                <button
+                  className="circle"
+                  onClick={() => toggleTaskComplete(task.id, task)}
+                >
+                  <strong>&#10003;</strong>
+                </button>
+                <span>{_.get(task, "label")}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

@@ -16,6 +16,10 @@ import { arrayMove, arrayRemove } from "react-movable";
 
 function App() {
   const [tasks, setTasks] = useLocalStorage<Array<TaskType>>("tasks", []);
+  const [completedTasks, setCompletedTasks] = useLocalStorage<Array<TaskType>>(
+    "completedTasks",
+    []
+  );
   const [facts, setFacts] = useLocalStorage<Array<{}>>("fact", []);
   const [toggleType, setToggleType] = useLocalStorage<boolean>(
     "toggleType",
@@ -44,7 +48,7 @@ function App() {
   useEffect(() => {
     try {
       const day = _.get(facts, "date").split(" ");
-      if (today.getDate() != day[1]) {
+      if (today.getDate() !== day[1]) {
         fetchFact();
       }
     } catch {
@@ -62,7 +66,6 @@ function App() {
   const addNewTask: AddTaskType = (taskLabel) => {
     const newTask = {
       id: Math.random(),
-      completed: false,
       label: taskLabel,
       date_created: new Date(),
     };
@@ -73,16 +76,13 @@ function App() {
   const deleteTask = (id: number) =>
     setTasks((oldList) => arrayRemove(oldList, id));
 
-  const toggleTaskComplete = (id: number) => {
-    setTasks((oldList) =>
-      oldList.map((task) =>
-        task.id === id ? { ...task, completed: true } : task
-      )
-    );
+  const toggleTaskComplete = (id: number, task: TaskType) => {
+    setCompletedTasks((oldList) => [task, ...oldList]);
+    deleteTask(id);
   };
 
   const reset = () => {
-    setTasks((oldList) => oldList.filter((task) => !task.completed));
+    setCompletedTasks([]);
   };
 
   const switchImage = (hour: number) => {
@@ -124,13 +124,12 @@ function App() {
         //@ts-ignore */}
         <TaskList
           tasks={tasks}
+          completedTasks={completedTasks}
           deleteTask={deleteTask}
           toggleTaskComplete={toggleTaskComplete}
           resetCallback={reset}
           handleReorder={handleTaskListReorder}
         />
-        <AI />
-        {/* <Fact facts={_.get(facts, "events", [])} /> */}
       </div>
     );
   }
